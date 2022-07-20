@@ -1,0 +1,27 @@
+pipeline {
+
+    agent {
+        node {
+            label 'pyproject'
+            customWorkspace '/home/ubuntu/devraj_jenkins/build'
+        }
+    }
+    stages {
+        stage('Checkout project') {
+            steps {
+                script {
+                    git branch: "main",
+					url: 'https://github.com/devrajbdec/jenkins_training.git'
+                }
+            }
+        }
+        stage('Running Unit tests') {
+            steps {
+                script {
+                    sh 'python -m unittest test_car'
+
+                }
+            }
+        }
+    }
+}
